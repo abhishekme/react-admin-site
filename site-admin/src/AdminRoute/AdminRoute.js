@@ -16,14 +16,22 @@ class AdminRoute extends React.Component{
         <Router>
             <Switch>
                 <Route exact path="/" component={Login}/>
-                <Route path="/Users" component={UserList}/>  
+                {/* <Route path="/Users" component={UserList}/> */}
+                <Route
+                    path="/Users"
+                    render={({ match: { url } }) => (
+                    <>
+                    <Route path={`${url}/`} component={UserList} exact />
+                    <Route path={`${url}/Add`} component={UserAdd} exact/>
+                    <Route path={`${url}/Edit/:id`} component={UserEdit} exact/>
+                    </>
+                    )}
+                />
 
-                    <Route exact path="/Users/Add" component={UserAdd}/> 
-                 
-                    <Route exact path="/Users/Edit" component={UserEdit} /> 
+                    {/* <Route exact path="/Users/Add" component={UserAdd}/>                  
+                    <Route exact path="/Users/Edit" component={UserEdit} />  */}
 
-                <Route path="/Dashboard" component={Dashboard}/> 
-                
+                <Route path="/Dashboard" component={Dashboard}/>                 
             </Switch>
         </Router>
         )    
